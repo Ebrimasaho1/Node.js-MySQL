@@ -49,9 +49,11 @@ function bamazon() {
                         //     console.log();
 
                         //}
-                        connection.query("SELECT * FROM products WHERE item_id = " + itemChoice.Item_ID, function (itemFromDb) {
+                        connection.query("SELECT * FROM products WHERE item_id = ? ", [itemChoice.Item_ID] , function (err,itemFromDb) {
+                            if (err) throw err;
                             console.log(itemFromDb);
-
+                            // [itemChoice.Item_ID]
+                            // if (itemQuan <= )
                         })
                     })
             })

@@ -44,18 +44,27 @@ function bamazon() {
                         message: "How many of this item would you like to buy?"
                     }).then(function (itemQuan) {
                         console.log(itemQuan);
-                        console.log(itemChoice.Item_ID);
+                        //console.log(itemChoice.Item_ID);
                         // if(itemQuan === res[i].item_id){
                         //     console.log();
 
                         //}
-                        connection.query("SELECT * FROM products WHERE item_id = ? ", [itemChoice.Item_ID] , function (err,itemFromDb) {
-                            if (err) throw err;
-                            console.log(itemFromDb);
-                            // [itemChoice.Item_ID]
-                            // if (itemQuan <= )
+
+                        connection.query("SELECT * FROM products WHERE item_id = ? ", [itemChoice.Item_ID], function (err, itemFromDb) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            // console.log(itemFromDb);
+                            console.log(itemFromDb[0].stock_quantity);
+                            for (i = 0; i < itemFromDb.length; i++) {
+                                if (itemQuan <= itemFromDb[0].stock_quantity) {
+                                    var newStockQuan = itemFromDb.stock_quantity[0] - userQuan;
+                                    console.log(newStockQuan);
+                                }
+                            }
                         })
                     })
+
             })
     });
 

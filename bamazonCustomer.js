@@ -54,7 +54,7 @@ function bamazon() {
                                 console.log(err);
                             }
                             console.log(itemFromDb);
-                            console.log(itemFromDb[0].stock_quantity);
+                            // console.log(itemFromDb[0].stock_quantity);
                             var newStockQuan;
                             if (itemQuan.itemQuantity <= itemFromDb[0].stock_quantity) {
                                 newStockQuan = itemFromDb[0].stock_quantity - itemQuan.itemQuantity;
@@ -79,7 +79,14 @@ function bamazon() {
                                         connection.query("SELECT * FROM products", function (err, updatedRes) {
                                             if (err) throw err;
                                             console.log(updatedRes);
+                                            var priceOfItem = itemFromDb[0].price;
+                                            console.log(priceOfItem);
+                                            var customerPay = itemQuan.itemQuantity * priceOfItem;
+                                            var n = customerPay.toFixed(2);
+                                            console.log("Total Due from Customer: " + n);
+                                            
                                             console.log("Your order is one the way!");
+                                            
 
                                         });
                                     }
@@ -88,6 +95,8 @@ function bamazon() {
 
                             }
                             else {
+                                console.log("Available quantity in stock: " + itemFromDb[0].stock_quantity);
+                                
                                 console.log("Insufficient quantity!");
                                 
                             }

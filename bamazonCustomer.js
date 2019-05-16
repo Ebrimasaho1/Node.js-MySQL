@@ -61,18 +61,35 @@ function bamazon() {
                                 console.log(newStockQuan);
 
                                 //updating database
-                                // connection.query("UPDATE products SET ? WHERE ?",
-                                //     [{
-                                //         [itemFromDb[0].stock_quantity]: newStockQuan
-                                //     }],
-                                //     function (error) {
-                                //         if (error) throw err;
-                                //         console.log("Order quantity updated");
+                                connection.query("UPDATE products SET ? WHERE ?",
+                                    [{
+                                        stock_quantity: newStockQuan
+                                    },
+                                    {
+                                        item_id: itemChoice.Item_ID
+                                    }
+                                    ],
+                                    function (error, result) {
+                                        if (error) throw err;
+                                        console.log("Order quantity updated");
+                                        console.log(result);
+                                        console.log();
 
-                                //     }
+                                        // console.log(itemFromDb);
+                                        connection.query("SELECT * FROM products", function (err, updatedRes) {
+                                            if (err) throw err;
+                                            console.log(updatedRes);
+                                            console.log("Your order is one the way!");
 
-                                // );
+                                        });
+                                    }
 
+                                );
+
+                            }
+                            else {
+                                console.log("Insufficient quantity!");
+                                
                             }
 
                         })
